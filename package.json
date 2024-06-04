@@ -1,0 +1,19 @@
+{
+  "scripts": {
+    "start": "concurrently \"npm start --prefix ./hostapp\" \"npm start --prefix ./remote\"",
+    "setup": "npm install && npm run installHostapp && npm run installRemote",
+    "installHostapp": "npm --prefix ./hostapp install",
+    "installRemote": "npm --prefix ./remote install",
+    "postinstall": "npm run installHostapp && npm run installRemote",
+    "start:host": "npm --prefix ./hostapp start",
+    "start:remote": "npm --prefix ./remote start"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  },
+  "name": "telus-microfrontend-todo",
+  "description": "Todo example",
+  "version": "1.0.0",
+  "author": "IgnacioAng",
+  "license": "ISC"
+}
