@@ -1,9 +1,10 @@
 import React, { useEffect, useState } from 'react';
 import { Task, TodoFilter } from './types';
 import TodoItem from './TodoItem';
-import { AddTaskForm, AddTaskInputs, FilterTitle, ListItemContainer, SectionTitle, TLFilterButton, TodoListFilterContainer, TodoListParentContainer } from './styles';
+import { AddTaskForm, AddTaskInputs, FilterTitle, ListItemContainer, MainTitle, SectionTitle, TLFilterButton, TodoListFilterContainer, TodoListParentContainer } from './styles';
 import { LOCAL_STORAGE_KEY } from './contants';
-import { getFilterTitle, getFilteredTasks } from './utils';
+import { getFilterTitle, getFilteredTasks, getPersistedListFromLocalStorage } from './utils';
+import { DarkModeToggle } from '../../styles/DarkModeToggle';
 
 
 const TodoList = () => {
@@ -29,15 +30,11 @@ const TodoList = () => {
     const [filter, setFilter] = useState<TodoFilter>(TodoFilter.All);
 
 
-    // Restore persisted
-    useEffect(() => {
-        const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (storedTodos) {
 
-            const persistedList = JSON.parse(storedTodos);
-            console.log("persistedList", persistedList)
-            setTasks(persistedList);
-        }
+    useEffect(() => {
+        // Restore persisted after mount
+        const persistedList = getPersistedListFromLocalStorage();
+        setTasks(persistedList);
     }, []);
 
     useEffect(() => {
@@ -55,6 +52,9 @@ const TodoList = () => {
         // Add new task and cleanup text
         setTasks([...tasks, newTask]);
         setText('');
+
+        // Setting Filter to All, if not they are not visible while filter on
+        setFilter(TodoFilter.All);
     }
     const cleanTask = (id: number) => {
         setTasks(tasks.filter(task => task.id !== id));
@@ -77,14 +77,13 @@ const TodoList = () => {
     return (
         <TodoListParentContainer>
 
-            <SectionTitle>
-                Todo Manager
-            </SectionTitle>
+            <MainTitle>
+                <SectionTitle> Todo Manager </SectionTitle>
+                <DarkModeToggle />
+            </MainTitle>
 
             <AddTaskForm>
-                <SectionTitle>
-                    Add New Task:
-                </SectionTitle>
+                <SectionTitle> Add New Task: </SectionTitle>
                 <AddTaskInputs>
 
                     <input
@@ -92,42 +91,44 @@ const TodoList = () => {
                         placeholder="New todo task"
                         onChange={ev => setText(ev.target.value)}
                     />
-                    <button onClick={() => addNewTask(text)}>Add</button>
+                    <button onClick={() => addNewTask(text)} title="Add task" >Add</button>
                 </AddTaskInputs>
             </AddTaskForm>
 
 
-            <ListItemContainer>
-                <TodoListFilterContainer>
-                    <FilterTitle>
-                        Filter by:
-                    </FilterTitle>
-                    <TLFilterButton filter={TodoFilter.All} activef={filter} onClick={() => setFilter(TodoFilter.All)} >
-                        All
-                    </TLFilterButton>
-                    <TLFilterButton filter={TodoFilter.Active} activef={filter} onClick={() => setFilter(TodoFilter.Active)} >
-                        Active
-                    </TLFilterButton>
-                    <TLFilterButton
-                        filter={TodoFilter.Completed} activef={filter} onClick={() => setFilter(TodoFilter.Completed)} >
-                        Completed
-                    </TLFilterButton>
-                </TodoListFilterContainer >
-            </ListItemContainer>
+            <TodoListFilterContainer>
+                <FilterTitle> Filter by: </FilterTitle>
+                <TLFilterButton filter={TodoFilter.All} activef={filter} onClick={() => setFilter(TodoFilter.All)} title="Show all" >
+                    All
+                </TLFilterButton>
+                <TLFilterButton filter={TodoFilter.Active} activef={filter} onClick={() => setFilter(TodoFilter.Active)} title="Tilter by active" >
+                    Active
+                </TLFilterButton>
+                <TLFilterButton
+                    filter={TodoFilter.Completed} activef={filter} onClick={() => setFilter(TodoFilter.Completed)} title="Filter by completed">
+                    Completed
+                </TLFilterButton>
+            </TodoListFilterContainer >
+
 
             <ListItemContainer>
                 <SectionTitle>
-                    Todo List:
+                    Todo List <span>[{filteredTasks.length}]:</span>
                     <p>{getFilterTitle(filter)}</p>
                 </SectionTitle>
-                {filteredTasks.map(taskObj => (
-                    <TodoItem
-                        key={taskObj.id}
-                        cleanTask={cleanTask}
-                        task={taskObj}
-                        markCompleted={markCompleted}
-                    />
-                ))}
+
+                {filteredTasks.length === 0 ?
+                    <div>There are no elements in the list</div>
+                    :
+                    filteredTasks.map(taskObj => (
+                        <TodoItem
+                            key={taskObj.id}
+                            cleanTask={cleanTask}
+                            task={taskObj}
+                            markCompleted={markCompleted}
+                        />
+                    ))
+                }
             </ListItemContainer>
         </TodoListParentContainer>
     );

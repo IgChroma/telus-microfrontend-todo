@@ -1,3 +1,4 @@
+import { LOCAL_STORAGE_KEY } from "./contants";
 import { Task, TodoFilter } from "./types";
 
 export const getFilterTitle = (filter: TodoFilter) => {
@@ -33,7 +34,7 @@ export const getFilteredTasks = (tasks: Task[], filter: TodoFilter) => {
 export const validatePersistedList = (persistedList: any): Task[] => {
     if (!Array.isArray(persistedList)) {
         console.error('Error: Persisted data is not an array');
-        return []; 
+        return [];
     }
 
     const validTasks: Task[] = [];
@@ -50,3 +51,25 @@ export const validatePersistedList = (persistedList: any): Task[] => {
 
     return validTasks;
 };
+
+export const getPersistedListFromLocalStorage = (): Task[] => {
+
+    const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if (!storedTodos) { return [] };
+
+    try {
+        const persistedList = JSON.parse(storedTodos);
+        const validList = validatePersistedList(persistedList);
+        console.log("persistedList", validList)
+        return validList;
+    } catch (error) {
+        console.error("error only on env. develop...", error);
+        return [];
+    }
+}
+
+export const toggleDarkMode = () => {
+    document.body.classList.toggle("light");
+    document.querySelector(".moon")?.classList.toggle('sun');
+    document.querySelector(".tdnn")?.classList.toggle('day');
+}
