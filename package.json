@@ -6,7 +6,10 @@
     "installRemote": "npm --prefix ./remote install",
     "postinstall": "npm run installHostapp && npm run installRemote",
     "start:host": "npm --prefix ./hostapp start",
-    "start:remote": "npm --prefix ./remote start"
+    "start:remote": "npm --prefix ./remote start",
+    "test": "npm --prefix ./remote test",
+    "test:cov": "npm --prefix ./remote run test:cov",
+    "test:watch": "npm --prefix ./remote run test:watch"
   },
   "devDependencies": {
     "concurrently": "^8.2.2"

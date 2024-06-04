@@ -1,0 +1,23 @@
+{
+  "collectCoverageFrom": [
+    "src/**/*.tsx",
+    "src/components/*.tsx",
+    "!**/node_modules/**",
+    "!**/src/test-utils/**",
+    "!**/src/index.tsx",
+    "!**/src/App.tsx",
+    "!**/src/styles/*.tsx"
+  ],
+  "coverageThreshold": {
+    "global": {
+      "statements": 80,
+      "branches": 80,
+      "functions": 80,
+      "lines": 80
+    }
+  },
+  "setupFilesAfterEnv": [
+    "./src/testUtils.ts"
+  ],
+  "testEnvironment": "jsdom"
+}

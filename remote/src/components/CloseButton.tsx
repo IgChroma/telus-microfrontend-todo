@@ -28,7 +28,7 @@ const buttonSVG = <svg width="24px" height="24px" viewBox="0 0 20 20" version="1
 
 const CloseButton: React.FC<CloseButtonProps> = ({ onClick }) => {
     return (
-        <StyledXButton title='Delete' type="button" onClick={onClick}>
+        <StyledXButton title='Delete' type="button" data-testid="deleteButton" onClick={onClick}>
             {buttonSVG}
         </StyledXButton>
     );

@@ -26,6 +26,14 @@ export const getFilteredTasks = (tasks: Task[], filter: TodoFilter) => {
     })
 }
 
+
+export const toggleDarkMode = () => {
+    document.body.classList.toggle("light");
+    document.querySelector(".moon")?.classList.toggle('sun');
+    document.querySelector(".tdnn")?.classList.toggle('day');
+}
+
+
 /**
  * @description: Utility function to validate persisted data
  * @param persistedList obj from 
@@ -42,6 +50,7 @@ export const validatePersistedList = (persistedList: any): Task[] => {
     persistedList.forEach(itemObj => {
         const { id, text, isCompleted } = itemObj;
         if (typeof id !== 'number' || typeof text !== 'string' || typeof isCompleted !== 'boolean') {
+            console.error("error with", itemObj)
             throw Error('Error: Persisted data item is missing required properties (id, text, isCompleted)')
         } else {
             validTasks.push(itemObj); // Add valid items to the new array
@@ -53,23 +62,15 @@ export const validatePersistedList = (persistedList: any): Task[] => {
 };
 
 export const getPersistedListFromLocalStorage = (): Task[] => {
-
     const storedTodos = localStorage.getItem(LOCAL_STORAGE_KEY);
     if (!storedTodos) { return [] };
 
     try {
         const persistedList = JSON.parse(storedTodos);
         const validList = validatePersistedList(persistedList);
-        console.log("persistedList", validList)
         return validList;
     } catch (error) {
         console.error("error only on env. develop...", error);
         return [];
     }
-}
-
-export const toggleDarkMode = () => {
-    document.body.classList.toggle("light");
-    document.querySelector(".moon")?.classList.toggle('sun');
-    document.querySelector(".tdnn")?.classList.toggle('day');
 }
