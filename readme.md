@@ -18,6 +18,12 @@ You can run npm start on each subfolder as well or use on two different consoles
 ```npm run start:host```
 ```npm run start:remote```
 
+**Screenshot**
+Desktop
+![image](https://github.com/IgChroma/telus-microfrontend-todo/assets/54694652/4523149d-ff2a-4aad-9445-825460f94346)
+Mobile
+![localhost_8081_(iPhone SE)](https://github.com/IgChroma/telus-microfrontend-todo/assets/54694652/0bbb58b5-fd8d-4ba3-b42e-f9fc09af9889)
+
 
 ## Tests
 ```npm run test```
@@ -25,6 +31,8 @@ You can run npm start on each subfolder as well or use on two different consoles
 ```npm run test:watch```
 
 Commands can be run in root or in /remote (micro frontend for Todo app)
+
+![image](https://github.com/IgChroma/telus-microfrontend-todo/assets/54694652/b0810269-f0f6-4729-80fb-8193d93254d1)
 
 
 **Other architectural considerations**
