@@ -18,13 +18,6 @@ You can run npm start on each subfolder as well or use on two different consoles
 ```npm run start:host```
 ```npm run start:remote```
 
-**Screenshot**
-Desktop
-![image](https://github.com/IgChroma/telus-microfrontend-todo/assets/54694652/4523149d-ff2a-4aad-9445-825460f94346)
-Mobile
-![localhost_8081_(iPhone SE)](https://github.com/IgChroma/telus-microfrontend-todo/assets/54694652/0bbb58b5-fd8d-4ba3-b42e-f9fc09af9889)
-
-
 ## Tests
 ```npm run test```
 ```npm run test:cov```
@@ -53,7 +46,12 @@ Other path may be a monorepo with subfolders for each project (increasing spead 
 - Similar to the single "remote app" concept, manage multiple front-end dependencies as independent repositories.
 - Publish each dependency using package managers for integration with the main app.
 
-
 # Regarding .env 
-
 - You can ignore the `.env` file not found warning on startup if it's not necessary for your application current state (may be added later if the scope requires it)
+
+
+**Screenshots**
+Desktop
+![image](https://github.com/IgChroma/telus-microfrontend-todo/assets/54694652/4523149d-ff2a-4aad-9445-825460f94346)
+Mobile
+![localhost_8081_(iPhone SE)](https://github.com/IgChroma/telus-microfrontend-todo/assets/54694652/0bbb58b5-fd8d-4ba3-b42e-f9fc09af9889)
