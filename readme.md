@@ -1,4 +1,6 @@
-**Running the Application:**
+## TODO LIST APP with MF
+
+**Structure:**
 
 The project root contains 2 folders one for each MicroFrontend
 /hostapp will have the app (port 8081)
