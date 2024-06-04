@@ -1,5 +1,9 @@
 **Running the Application:**
 
+The project root contains 2 folders one for each MicroFrontend
+/hostapp will have the app (port 8081)
+/remote is an example microfrontend that shared the Todo Components (port 8085)
+
 ## Installation
 
 ```npm install``` (or ```npm run setup```)
